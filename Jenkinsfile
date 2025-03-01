@@ -1,12 +1,12 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/yourusername/your-repo.git'
+    stage('Checkout') {
+                steps {
+                    git url: 'https://github.com/NagendraM9640/SerenityBDD.git',
+                        credentialsId: 'github-creds'  // Use the saved credentials ID
+                }
             }
-        }
 
         stage('Build') {
             steps {
