@@ -1,30 +1,35 @@
 pipeline {
-    agent any
+    agent any 
 
-    stages {  // "stages" block was missing
+    stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/NagendraM9640/SerenityBDD.git',
-                    credentialsId: 'github-creds'  // Use the saved credentials ID
+                git url: 'https://github.com/NagendraM9640/SerenityBDD.git', credentialsId: 'github-creds'
             }
         }
 
         stage('Build') {
             steps {
-                bat 'mvnw.cmd clean verify'
+                bat 'mvnw.cmd clean verify'  // Windows command
             }
         }
 
         stage('Test') {
             steps {
-                bat 'mvnw.cmd test'
+                bat 'mvnw.cmd test'  // Windows command
             }
         }
 
         stage('Report') {
             steps {
-                junit '**/target/surefire-reports/*.xml'
+                junit '**/target/surefire-reports/*.xml'  // Test report publishing
             }
         }
-    }  // Ensure this "stages" block is properly closed
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: '**/target/**/*.jar', fingerprint: true  // Save build artifacts
+        }
+    }
 }
