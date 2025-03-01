@@ -10,26 +10,26 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvnw.cmd clean verify'  // Windows command
+                bat 'mvn clean verify'  // Use mvn instead of mvnw.cmd
             }
         }
 
         stage('Test') {
             steps {
-                bat 'mvnw.cmd test'  // Windows command
+                bat 'mvn test'  // Use mvn instead of mvnw.cmd
             }
         }
 
         stage('Report') {
             steps {
-                junit '**/target/surefire-reports/*.xml'  // Test report publishing
+                junit '**/target/surefire-reports/*.xml'
             }
         }
     }
 
     post {
         always {
-            archiveArtifacts artifacts: '**/target/**/*.jar', fingerprint: true  // Save build artifacts
+            archiveArtifacts artifacts: '**/target/**/*.jar', fingerprint: true
         }
     }
 }
