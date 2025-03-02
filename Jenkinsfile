@@ -1,22 +1,22 @@
 pipeline {
-    agent any
+    agent any 
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/yourusername/your-repo.git'
+                git url: 'https://github.com/NagendraM9640/SerenityBDD.git', credentialsId: 'github-creds'
             }
         }
 
         stage('Build') {
             steps {
-                sh './mvn clean verify'
+                bat 'mvn clean verify'  // Use mvn instead of mvnw.cmd
             }
         }
 
         stage('Test') {
             steps {
-                sh './mvnw test'
+                bat 'mvn test'  // Use mvn instead of mvnw.cmd
             }
         }
 
@@ -24,6 +24,14 @@ pipeline {
             steps {
                 junit '**/target/surefire-reports/*.xml'
             }
+        }
+    }
+
+    post {
+        // If Maven was able to run the tests, even if some of the test
+        // failed, record the test results and archive the jar file.
+        success {
+            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site/serenity/', reportFiles: 'index.html', reportName: 'Serenity Report', reportTitles: 'Functional Testing Report', useWrapperFileDirectly: true])
         }
     }
 }

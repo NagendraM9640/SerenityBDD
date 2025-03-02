@@ -218,7 +218,7 @@ public class ARASLoginPageObjects extends PageObject {
         } else if (userRole.equalsIgnoreCase("NM1")) {
             databaseField = "ArasUATDB4";
             userName = "NM1";
-            password = "innovator1";
+            password = "innovator";
         } else {
             userName = userRole;
             password = "innovator";

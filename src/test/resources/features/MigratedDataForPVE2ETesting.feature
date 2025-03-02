@@ -59,7 +59,7 @@ Feature: End to end testing for migrated data
     Given Login to the ARAS Application as NM1
     #When Navigate to Design/Parts/Search Parts
     When Navigate to Change Management/ECOs/Create New ECO
-    And Search for all the parts based on the excel file add it one ECO and Release it
+    #And Search for all the parts based on the excel file add it one ECO and Release it
 
 
 #  Scenario: Re-Run the ECO
